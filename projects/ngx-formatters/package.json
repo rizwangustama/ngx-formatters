@@ -1,6 +1,30 @@
 {
   "name": "ngx-formatters",
   "version": "0.0.1",
+  "description": "A lightweight, modular, and comprehensive formatting library for Angular applications with 50+ standalone pipes and pure functions.",
+  "keywords": [
+    "angular",
+    "ngx",
+    "pipes",
+    "formatters",
+    "formatting",
+    "currency",
+    "datetime",
+    "number",
+    "string",
+    "utility",
+    "standalone"
+  ],
+  "author": "Rizwan Gustama",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizwangustama/ngx-formatters.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rizwangustama/ngx-formatters/issues"
+  },
+  "homepage": "https://github.com/rizwangustama/ngx-formatters#readme",
   "peerDependencies": {
     "@angular/common": "^22.2.0",
     "@angular/core": "^22.2.0"

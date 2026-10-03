@@ -1,0 +1,64 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (do not actually publish to npm)'
+        type: boolean
+        required: false
+        default: false
+      tag:
+        description: 'NPM distribution tag (e.g. latest, beta, next)'
+        type: string
+        required: false
+        default: 'latest'
+
+jobs:
+  publish:
+    name: Build & Publish Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Required for npm provenance (--provenance)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Publish to NPM (Dry Run)
+        if: ${{ inputs.dry_run == true }}
+        run: |
+          echo "Executing dry-run publish for dist/ngx-formatters..."
+          npm publish ./dist/ngx-formatters --tag ${{ inputs.tag || 'latest' }} --access public --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          echo "Publishing dist/ngx-formatters to NPM..."
+          npm publish ./dist/ngx-formatters --tag ${{ inputs.tag || 'latest' }} --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
