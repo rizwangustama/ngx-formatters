@@ -1,5 +1,5 @@
 {
-  "name": "ngx-formatters",
+  "name": "@rizwangustama/ngx-formatters",
   "version": "0.0.1",
   "description": "A lightweight, modular, and comprehensive formatting library for Angular applications with 50+ standalone pipes and pure functions.",
   "keywords": [
