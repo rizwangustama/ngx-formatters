@@ -32,5 +32,8 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "sideEffects": false
 }
